@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react';
+import { ADD_EXPENSE, RED_EXPENSE, DELETE_EXPENSE, SET_BUDGET, CHG_CURRENCY } from '../ActionNames';
 
 // 5. The reducer - this is used to update the state, based on the action
 export const AppReducer = (state, action) => {
     let budget = 0;
     switch (action.type) {
-        case 'ADD_EXPENSE':
+        case ADD_EXPENSE:
             let total_budget = 0;
             total_budget = state.expenses.reduce(
                 (previousExp, currentExp) => {
@@ -30,7 +31,7 @@ export const AppReducer = (state, action) => {
                     ...state
                 }
             }
-            case 'RED_EXPENSE':
+            case RED_EXPENSE:
                 const red_expenses = state.expenses.map((currentExp)=> {
                     if (currentExp.name === action.payload.name && currentExp.cost - action.payload.cost >= 0) {
                         currentExp.cost =  currentExp.cost - action.payload.cost;
@@ -43,7 +44,7 @@ export const AppReducer = (state, action) => {
                     ...state,
                     expenses: [...red_expenses],
                 };
-            case 'DELETE_EXPENSE':
+            case DELETE_EXPENSE:
             action.type = "DONE";
             state.expenses.map((currentExp)=> {
                 if (currentExp.name === action.payload) {
@@ -57,14 +58,14 @@ export const AppReducer = (state, action) => {
                 ...state,
                 budget
             };
-        case 'SET_BUDGET':
+        case SET_BUDGET:
             action.type = "DONE";
             state.budget = action.payload;
 
             return {
                 ...state,
             };
-        case 'CHG_CURRENCY':
+        case CHG_CURRENCY:
             action.type = "DONE";
             state.currency = action.payload;
             return {
