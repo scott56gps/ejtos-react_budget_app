@@ -3,7 +3,7 @@ import { ADD_EXPENSE, RED_EXPENSE } from "../ActionNames";
 import { AppContext } from "../context/AppContext";
 
 const AllocationForm = (props) => {
-  const { dispatch, remaining } = useContext(AppContext);
+    const { dispatch, currency, remaining } = useContext(AppContext);
 
   const [name, setName] = useState("");
   const [cost, setCost] = useState("");
@@ -86,13 +86,14 @@ const AllocationForm = (props) => {
               Reduce
             </option>
           </select>
-
+          <div style={{ marginLeft: "2rem", paddingRight: "4px" }}>
+            {currency.symbol}
+          </div>
           <input
             required="required"
             type="number"
             id="cost"
             value={cost}
-            style={{ marginLeft: "2rem", size: 10 }}
             onChange={(event) => setCost(event.target.value)}
           />
 
